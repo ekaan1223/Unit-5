@@ -27,8 +27,26 @@ public class Target : MonoBehaviour
             Debug.Log("Clicked");
 
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Debug.DrawRay(ray.origin , ray.direction * 100f, Color.red, 2.0f);
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1.0f);
 
+            if(Physics.Raycast(ray , out RaycastHit hit))
+            {
+                if(hit.transform == transform)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("destroyZone"))
+        {
+            Destroy(gameObject);
         }
     }
 }
