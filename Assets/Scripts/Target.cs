@@ -4,10 +4,16 @@ using UnityEngine.InputSystem;
 public class Target : MonoBehaviour
 {
     private Rigidbody rb;
+    private GameManager gameManager;
+
+    public int pointValue;
+    public ParticleSystem explosionParticle;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         rb.AddForce(Vector3.up * Random.Range(12 ,16), ForceMode.Impulse); //throw
        
@@ -31,10 +37,18 @@ public class Target : MonoBehaviour
 
             if(Physics.Raycast(ray , out RaycastHit hit))
             {
-                if(hit.transform == transform)
+
+                if (hit.transform == transform)
                 {
-                    Destroy(gameObject);
+                    if (gameManager.isGameActive == true)
+                    {
+                        Destroy(gameObject);
+                        gameManager.UpdateScore(pointValue);
+                        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+                    }
                 }
+               
+                
             }
 
         }
@@ -47,6 +61,12 @@ public class Target : MonoBehaviour
         if (other.CompareTag("destroyZone"))
         {
             Destroy(gameObject);
+            if (!gameObject.CompareTag("bad"))
+            {
+                gameManager.GameOver();
+                
+            }
+            
         }
     }
 }

@@ -153,3 +153,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6f8faac42707245af43c916c758935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
+  pointValue: 15
+  explosionParticle: {fileID: 7303472089845130122, guid: 95a8d60c3c7fc66429767e6044c1bf66, type: 3}
