@@ -6,6 +6,7 @@ public class Target : MonoBehaviour
     private Rigidbody rb;
     private GameManager gameManager;
 
+
     public int pointValue;
     public ParticleSystem explosionParticle;
 
@@ -63,8 +64,10 @@ public class Target : MonoBehaviour
             Destroy(gameObject);
             if (!gameObject.CompareTag("bad"))
             {
-                gameManager.GameOver();
-                
+              if (gameManager.lives == 0)
+              {
+                  gameManager.GameOver();
+              }
             }
             
         }
